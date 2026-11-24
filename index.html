@@ -20,18 +20,18 @@ button,input,textarea{font:inherit}button{cursor:pointer}.app{width:min(900px,10
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}.editor{display:none;background:#111714;border:1px solid var(--line);border-radius:27px;padding:18px;margin:16px 0}.editor.open{display:block}.editor h3{margin:0 0 14px;font-size:14px}.field{width:100%;background:#090e0b;border:1px solid #34443a;border-radius:17px;padding:13px 15px;color:var(--ink);outline:none}.editlist{display:grid;gap:9px}.editrow textarea{min-height:58px;resize:vertical}.editrow{display:flex;gap:8px}.editrow textarea{flex:1}.editbuttons{display:flex;justify-content:flex-end;gap:9px;margin-top:15px}
 .modalbg{position:fixed;inset:0;background:#000b;display:none;align-items:center;justify-content:center;padding:18px;z-index:5}.modalbg.open{display:flex}.modal{width:min(560px,100%);background:#151c18;border:1px solid #35443b;border-radius:30px;padding:23px}.modal h2{margin:0 0 8px;font-size:23px}.modal p{color:var(--muted);font-size:13px}.modal label{display:block;font-size:12px;margin:14px 0 7px}.modalbuttons{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}.footer{text-align:center;color:#607168;font-size:10px;letter-spacing:.12em;padding:35px 0}
 @media(min-width:700px){.app{padding-left:32px;padding-right:32px}.criteria{grid-template-columns:1fr 1fr}}
-</style></head><body><div class="app">
-<div class="top"><span>VITALS</span><button class="small" id="home">HOME</button></div>
+.topactions{display:flex;gap:7px}.filters{display:flex;gap:7px;overflow:auto;padding:4px 0 8px;margin:14px auto;max-width:760px;scrollbar-width:thin}.filter{white-space:nowrap;border:1px solid #29352f;background:#111714;color:#9aa8a0;padding:9px 13px;border-radius:999px;font-size:10px;font-weight:900;letter-spacing:.08em}.filter.active{background:#176b56;border-color:#176b56;color:white}.group{margin:9px 0 15px}.group h3{font-size:11px;letter-spacing:.15em;color:#8aa599;margin:20px 5px 9px}.badge{display:inline-block;border:1px solid #35443b;border-radius:999px;color:#94b6a4;padding:6px 10px;font-size:10px;letter-spacing:.08em;margin-top:11px}.cloudstatus{max-width:660px;margin:0 auto 10px;text-align:center;font-size:11px;color:#8cb49f;min-height:16px}.note{background:#101714;border:1px solid #29372f;border-radius:18px;padding:13px;color:#b2c1b8;font-size:12px;line-height:1.55;margin:14px 0}</style></head><body><div class="app">
+<div class="top"><span>VITALS</span><button class="small" id="home" style="margin-left:auto">HOME</button></div>
 <main id="homePage" class="page active"><section class="hero"><h1>VITALS</h1><h2>FIRST AID TRAINING APPLICATION</h2></section>
 <div class="searchwrap"><span class="glass">⌕</span><input id="search" class="search" placeholder="Search a first aid scenario…" autocomplete="off"></div>
-<p class="hint">Search by condition, symptom or common description</p><div id="results" class="results"></div><div class="footer">PRACTISE • REVIEW • IMPROVE</div></main>
-<main id="detailPage" class="page"><div class="head"><button class="back" id="back">← BACK TO SEARCH</button><h1 id="title"></h1><p id="desc"></p></div>
+<p class="hint">Search by condition, symptom or common description</p><div id="results" class="results"></div><div class="footer">PRACTISE • REVIEW • IMPROVE<br>Training templates only. In an emergency in Australia call Triple Zero (000). Follow current accredited training and local guidance.</div></main>
+<main id="detailPage" class="page"><div class="head"><button class="back" id="back">← BACK TO SEARCH</button><h1 id="title"></h1><p id="desc"></p><span id="scenarioCategory" class="badge"></span></div>
 <div class="tabs"><button class="tab active" data-level="1">LEVEL 1</button><button class="tab" data-level="2">LEVEL 2</button><button class="tab" data-level="3">LEVEL 3</button></div>
 <div class="meta"><strong id="levelName">FOUNDATION</strong><span id="count"></span></div><div id="criteria" class="criteria"></div>
 <div class="actions"><button class="secondary" id="edit">EDIT THIS LEVEL</button><button class="secondary" id="rename">EDIT CHECKLIST</button><button class="danger" id="delete">DELETE CHECKLIST</button></div>
 <section class="editor" id="editor"><h3 id="editHeading">EDIT LEVEL</h3><div id="editList" class="editlist"></div><div class="editbuttons"><button class="secondary" id="cancelEdit">CANCEL</button><button class="primary" id="saveEdit">SAVE CHANGES</button></div></section><div class="footer">VITALS • FIRST AID TRAINING APPLICATION</div></main></div>
-<div class="modalbg" id="createModal"><div class="modal"><h2>CREATE CHECKLIST</h2><p>Add a scenario, then edit its criteria on each level.</p><label>CHECKLIST NAME</label><input id="newTitle" class="field" placeholder="e.g. Nosebleed"><label>DESCRIPTION / SEARCH TERMS</label><input id="newDesc" class="field" placeholder="Optional keywords"><div class="modalbuttons"><button class="secondary" id="cancelCreate">CANCEL</button><button class="primary" id="create">CREATE</button></div></div></div>
-<div class="modalbg" id="renameModal"><div class="modal"><h2>EDIT CHECKLIST</h2><label>NAME</label><input id="renameTitle" class="field"><label>DESCRIPTION / SEARCH TERMS</label><input id="renameDesc" class="field"><div class="modalbuttons"><button class="secondary" id="cancelRename">CANCEL</button><button class="primary" id="saveRename">SAVE</button></div></div></div>
+<div class="modalbg" id="createModal"><div class="modal"><h2>CREATE CHECKLIST</h2><p>Add a scenario, then edit its criteria on each level.</p><label>CHECKLIST NAME</label><input id="newTitle" class="field" placeholder="e.g. Nosebleed"><label>DESCRIPTION / SEARCH TERMS</label><input id="newDesc" class="field" placeholder="Optional keywords"><label for="newCategory">CATEGORY</label><select id="newCategory" class="field"></select><div class="modalbuttons"><button class="secondary" id="cancelCreate">CANCEL</button><button class="primary" id="create">CREATE</button></div></div></div>
+<div class="modalbg" id="renameModal"><div class="modal"><h2>EDIT CHECKLIST</h2><label>NAME</label><input id="renameTitle" class="field"><label>DESCRIPTION / SEARCH TERMS</label><input id="renameDesc" class="field"><label for="renameCategory">CATEGORY</label><select id="renameCategory" class="field"></select><div class="modalbuttons"><button class="secondary" id="cancelRename">CANCEL</button><button class="primary" id="saveRename">SAVE</button></div></div></div>
 <script>
 const topics=[
 ["Unconscious but breathing","unresponsive, passed out, recovery position","unconscious unresponsive passed out fainted"],
@@ -83,4 +83,281 @@ $("saveRename").onclick=()=>{current.name=$("renameTitle").value.trim()||current
 $("delete").onclick=()=>{if(confirm(`Delete "${current.name}" and all its criteria?`)){store=store.filter(x=>x.id!==current.id);save();home()}};
 search();
 if("serviceWorker"in navigator&&location.protocol!=="file:")addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.error));
+</script>
+<script src="./public-config.js"></script>
+<script>
+(function(){
+"use strict";
+const EDIT_CODE="3272",CATALOG_VERSION=2;
+const categories=["Emergency response","Medical","Breathing & allergy","Heat & cold","Water safety","Bites & stings","Injury"];
+const sizes=[5,10,15];
+function scenario(id,name,category,aliases,desc,stages){const all=stages.slice();all.push("Reassess the person after first aid for "+name.toLowerCase()+" ~ Check for improvement or new danger signs ~ Escalate promptly if their condition worsens.","Prepare a handover about "+name.toLowerCase()+" ~ Share the timeline, observations and actions taken ~ Continue monitoring and follow responder instructions.");const a=all.slice(0,5).map(x=>x.split(" ~ "));if(a.some(x=>x.length!==3))throw new Error("Checklist content needs three steps per action group: "+name);return{id,name,category,aliases:aliases.split("|").map(x=>x.trim()).filter(Boolean),desc,levels:[a.map(x=>x[0]),a.flatMap(x=>x.slice(0,2)),a.flatMap(x=>x.slice(0,3))],checks:[[],[],[]],localOnly:false}}
+const catalog=[
+scenario("starter-0","Unconscious but breathing","Emergency response","unresponsive|passed out|recovery position|collapsed but breathing","Unresponsive person who is breathing normally.",[
+"Check scene safety and response ~ Call Triple Zero (000) for an unresponsive person ~ Ask a bystander to bring an AED if available.",
+"Open the airway and check breathing ~ If breathing normally, place in the recovery position when appropriate ~ Stay with the person.",
+"Monitor breathing and response continuously ~ If breathing becomes abnormal, turn onto the back and start CPR ~ Record changes and timings."
+]),
+scenario("starter-1","Cardiac arrest — CPR and AED","Emergency response","cardiac arrest|CPR|AED|defibrillator|not breathing normally|collapse","Sudden collapse with no response and absent or abnormal breathing.",[
+"Check for danger and responsiveness ~ Send for help and call Triple Zero (000) ~ Ask someone to get an AED.",
+"Open the airway and check breathing for no more than 10 seconds ~ If not breathing normally, start CPR ~ Use the AED as soon as it arrives.",
+"Give 30 compressions and 2 breaths if trained and willing ~ Continue with minimal interruption ~ Follow AED prompts and keep everyone clear during analysis."
+]),
+scenario("starter-2","Severe bleeding","Emergency response","bleeding|haemorrhage|hemorrhage|haemorrhaging|blood loss|wound","Major external bleeding or suspected life-threatening blood loss.",[
+"Check safety and use a barrier if available ~ Call 000 for severe or uncontrolled bleeding ~ Lie the person down and reassure them.",
+"Apply firm direct pressure over the bleeding point ~ If blood comes through, add a pad and keep pressure focused ~ Maintain pressure while help is arranged.",
+"For severe limb bleeding not controlled by pressure, use a tourniquet only if trained and available ~ Use wound packing only if trained and suitable ~ Monitor for shock and note times."
+]),
+scenario("starter-3","Burns and scalds","Injury","burn|burns|scald|hot liquid|chemical burn|electrical burn","Thermal, scald, chemical or electrical burns.",[
+"Stop the burning process and make the area safe ~ Call 000 for severe burns, breathing problems or major electrical injury ~ Remove jewellery and loose clothing near the burn.",
+"Cool a thermal burn under cool running water for 20 minutes as soon as possible ~ Do not use ice, creams or adhesive dressings ~ Do not remove clothing stuck to skin.",
+"Cover loosely with a clean non-stick dressing after cooling ~ For chemical burns, protect yourself and follow emergency advice on rinsing ~ Watch for shock and airway changes."
+]),
+scenario("starter-4","Choking — blocked airways","Emergency response","choking|blocked airway|blocked airways|airway obstruction|something stuck|can't breathe","Partial or severe airway obstruction from a foreign body.",[
+"Ask if the person is choking and assess whether they can cough, speak or breathe ~ Encourage an effective cough ~ Call 000 if obstruction is severe or worsening.",
+"For severe obstruction, use age-appropriate first aid from current training ~ Ask someone to call 000 and get an AED ~ Do not perform blind finger sweeps.",
+"If the person becomes unresponsive, lower them safely and start CPR ~ Check for a visible object before giving breaths ~ Continue until normal breathing returns or help takes over."
+]),
+scenario("starter-5","Asthma attack","Breathing & allergy","asthma|wheezing|difficulty breathing|constricted breathing|shortness of breath|reliever inhaler","Breathing difficulty in a person with asthma.",[
+"Help the person sit comfortably and stay calm ~ Follow their asthma action plan if available ~ Call 000 for severe symptoms or rapid deterioration.",
+"Assist with their prescribed reliever and spacer according to their plan and your training ~ Keep them at rest and stay with them ~ Reassess breathing and ability to speak.",
+"If symptoms are severe or not improving promptly, call or update 000 ~ Continue support as directed by their plan or call taker ~ Start CPR if they become unresponsive and are not breathing normally."
+]),
+scenario("starter-6","Anaphylaxis","Breathing & allergy","anaphylaxis|severe allergy|allergic reaction|adrenaline|epinephrine|EpiPen","Rapid severe allergic reaction affecting breathing or circulation.",[
+"Recognise possible anaphylaxis and call 000 ~ Help the person use their prescribed adrenaline injector promptly ~ Keep them lying flat where possible; do not let them stand or walk.",
+"Follow the injector instructions and their action plan ~ If breathing is difficult, allow a position that helps without standing ~ If vomiting or unconscious but breathing normally, use the recovery position.",
+"Monitor breathing and responsiveness continuously ~ Follow 000 advice; another prescribed injector may be needed if symptoms persist ~ If breathing becomes abnormal, begin CPR and use an AED."
+]),
+scenario("starter-7","Epileptic seizure","Medical","seizure|fit|convulsion|epilepsy|fitting","A seizure, including a convulsion or suspected epileptic event.",[
+"Make the area safer and protect the person from hazards ~ Time the seizure and call 000 for a first, prolonged or repeated seizure or serious injury ~ Do not restrain them.",
+"Do not put anything in the person's mouth ~ Cushion the head and loosen tight clothing around the neck ~ When the seizure stops, check breathing and responsiveness.",
+"If breathing normally but still unresponsive, use the recovery position and monitor ~ If not breathing normally, begin CPR ~ Stay with them and give a clear handover."
+]),
+scenario("starter-8","Suspected fracture","Injury","fracture|broken bone|broken limb|bone injury","Possible broken bone after an injury.",[
+"Check for danger and serious bleeding ~ Call 000 for an open fracture, major deformity, severe injury or shock ~ Keep the person still and comfortable.",
+"Support the injured part in the position found ~ Do not straighten it, push exposed bone back or test movement ~ Cover an open wound with a clean dressing.",
+"Recheck comfort and circulation beyond the injury when appropriate ~ Keep the person warm and monitor for shock ~ Arrange medical assessment and watch for deterioration."
+]),
+scenario("starter-9","Heat exhaustion and heatstroke","Heat & cold","heat illness|hyperthermia|heat exhaustion|heatstroke|heat stroke|overheating|heat stress","Heat-induced illness, including possible heatstroke.",[
+"Move the person to shade or a cooler place ~ Call 000 for confusion, collapse, seizure or severe illness ~ Begin cooling promptly without delaying help.",
+"Remove excess clothing, wet the skin with cool water and fan continuously ~ Offer cool water only if fully alert and able to swallow ~ Observe breathing and responsiveness throughout.",
+"If symptoms are severe or do not improve quickly, call 000 ~ Continue active cooling while help is on the way ~ Record symptoms, changes and cooling measures."
+]),
+scenario("starter-10","Hypoglycaemia — low blood sugar","Medical","hypoglycaemia|hypoglycemia|low blood sugar|diabetes hypo|hypo|shaky diabetic","Possible low blood glucose in a person with diabetes.",[
+"Look for confusion, sweating, shaking or unusual behaviour and ask about diabetes ~ Call 000 if drowsy, unconscious, having a seizure or unable to swallow ~ Give nothing by mouth if swallowing is unsafe.",
+"If fully alert and able to swallow, assist with fast-acting glucose according to their plan and your training ~ Stay with them and reassess ~ Call 000 if they do not improve or you are unsure.",
+"Once recovered, follow their plan for longer-acting food if directed ~ Do not give anything by mouth while consciousness or swallowing is impaired ~ Record treatment and response."
+]),
+scenario("starter-11","Stroke","Emergency response","stroke|FAST|facial droop|face drooping|arm weakness|slurred speech|sudden weakness","Sudden signs such as facial droop, arm weakness or speech difficulty.",[
+"Use FAST to recognise possible stroke signs ~ Call 000 immediately and note when symptoms began or the person was last well ~ Keep them at rest and reassure them.",
+"Do not give food, drink or medication ~ Monitor breathing, responsiveness and symptom changes ~ Follow the emergency call taker's instructions.",
+"Record onset and changes for responders ~ If unresponsive but breathing normally, protect the airway ~ If breathing is abnormal, begin CPR."
+]),
+scenario("new-hypothermia","Hypothermia","Heat & cold","hypothermia|cold exposure|very cold|shivering|cold stress","Dangerous cooling after cold, wet or windy exposure.",[
+"Move the person gently to a warm, dry, sheltered place ~ Call 000 for severe signs or deterioration ~ Handle gently and minimise movement.",
+"Remove wet clothing when practical and insulate with dry blankets ~ Cover the head; give a warm drink only if fully alert and able to swallow ~ Do not rub them or give alcohol.",
+"Use gentle warming and avoid direct heat that can burn skin ~ Monitor breathing and responsiveness ~ Start CPR if they are unresponsive and not breathing normally."
+]),
+scenario("new-snakebite","Snakebite","Bites & stings","snake bite|snakebite|venomous snake|suspected snake bite|elapid bite","Suspected Australian snake bite; treat as potentially life-threatening.",[
+"Call 000, lie the person down and keep them as still and calm as possible ~ Do not let them walk or wash the bite ~ Note the time if known.",
+"Apply pressure immobilisation to the bitten limb promptly when trained and equipped ~ Bandage over the bite then along the limb and splint it ~ Keep the person still.",
+"Do not cut, suck, wash or tourniquet the bite ~ Do not remove the bandage or splint before medical advice ~ Monitor breathing and record bandaging time."
+]),
+scenario("new-jellyfish","Jellyfish sting — tropical or unknown","Bites & stings","jellyfish|jelly fish|marine sting|box jellyfish|irukandji|tropical jellyfish","Marine sting where a tropical or dangerous species may be involved.",[
+"Get the person out of the water safely and alert a lifeguard ~ Call 000 for severe pain, breathing difficulty, collapse or suspected dangerous tropical sting ~ Avoid bare-hand contact with tentacles.",
+"For suspected box jellyfish or tropical species, flood the area with vinegar for at least 30 seconds if available and follow local emergency advice ~ Do not use fresh water for a suspected tropical sting ~ Do not apply pressure bandaging.",
+"If species is unknown, seek lifeguard or emergency service advice promptly ~ Monitor breathing and responsiveness ~ Treat collapse or abnormal breathing as an emergency."
+]),
+scenario("new-bluebottle","Bluebottle sting","Bites & stings","bluebottle|blue bottle|non-tropical jellyfish sting|Portuguese man o war","Painful sting from a bluebottle or other non-tropical jellyfish.",[
+"Get the person out of the water safely and alert a lifeguard ~ Call 000 if breathing is affected, pain is severe or the person collapses ~ Avoid bare-hand contact with tentacles.",
+"For a confirmed bluebottle sting, use hot water that will not burn to relieve pain ~ Follow local lifeguard advice if species is uncertain ~ Do not use vinegar for a bluebottle sting.",
+"Seek medical help if symptoms are severe or worsening ~ Watch for allergic reaction, breathing changes or collapse ~ Do not rub the sting or apply pressure bandaging."
+]),
+scenario("new-panic","Panic attack","Medical","panic|panic attack|anxiety attack|hyperventilating|acute anxiety","A person experiencing intense fear or panic symptoms.",[
+"Check safety and speak calmly ~ Ask what would help and reduce noise or crowding ~ Treat new, severe or unusual chest pain or breathing difficulty as a possible medical emergency.",
+"Use short, clear reassurance and stay with the person ~ Encourage comfortable, unforced breathing only if helpful ~ Do not use a paper bag or force breathing exercises.",
+"Reassess; do not assume panic explains every symptom ~ Call 000 if symptoms are severe, new, worsening or uncertain ~ Support access to ongoing care when the crisis eases."
+]),
+scenario("new-heart-attack","Chest pain — possible heart attack","Emergency response","heart attack|chest pain|angina|pressure in chest|cardiac pain","Chest discomfort or other possible signs of a heart attack.",[
+"Stop activity and help the person rest ~ Call 000 for suspected heart attack ~ Do not let them drive themselves.",
+"Ask about onset and their prescribed action plan ~ Assist only with their own prescribed medicine within your training ~ Do not delay the ambulance to see if symptoms pass.",
+"Monitor breathing and responsiveness ~ If unresponsive and not breathing normally, start CPR and get an AED ~ Give responders the symptom timeline and medicines taken."
+]),
+scenario("new-shock","Shock","Emergency response","shock|circulatory shock|pale sweaty|weak pulse|collapse after injury","Possible life-threatening shock following illness or injury.",[
+"Call 000 for suspected shock ~ Treat the cause, especially severe bleeding ~ Help the person lie comfortably and reassure them.",
+"Keep them warm with a blanket and loosen tight clothing ~ Do not raise their legs or apply direct heat ~ Avoid food or drink if consciousness is reduced or urgent surgery may be needed.",
+"Monitor breathing and responsiveness continuously ~ Protect the airway if needed ~ Record changes and give responders a clear handover."
+]),
+scenario("new-drowning","Drowning or submersion","Water safety","drowning|near drowning|submersion|water rescue|pulled from water","Person rescued from water with possible breathing injury.",[
+"Do not enter unsafe water; summon trained rescue and call 000 ~ Remove the person from danger only when safe ~ Check response and breathing.",
+"If unresponsive and not breathing normally, start CPR and use an AED when available ~ Follow current training and 000 instructions ~ Give rescue breaths if trained and willing.",
+"Continue CPR until normal breathing returns or help takes over ~ If breathing normally, keep the airway clear and monitor closely ~ Arrange urgent medical assessment after submersion."
+]),
+scenario("new-poison","Poisoning or harmful exposure","Medical","poisoning|poison|chemical exposure|toxic substance|ingestion|Poisons Information Centre","Possible swallowing, inhaling or skin exposure to a harmful substance.",[
+"Protect yourself and move away from fumes if safe ~ Call 000 for collapse, seizure or severe breathing difficulty ~ In Australia call Poisons Information on 13 11 26 for advice.",
+"Do not induce vomiting or give a home remedy unless poison experts direct you ~ For skin or eye exposure, avoid contact and follow expert advice on rinsing ~ Keep the product container.",
+"Note substance, amount, route and time if known ~ Monitor breathing and follow poison service advice ~ Give responders product details and actions already taken."
+]),
+scenario("new-overdose","Suspected overdose","Medical","overdose|drug overdose|medication overdose|too many tablets|unknown substance","Possible overdose or dangerous effect from medicines or other substances.",[
+"Check scene safety and avoid contact with unknown substances ~ Call 000 for reduced consciousness, seizure or breathing difficulty ~ Ask for naloxone if opioid overdose is possible.",
+"Follow 000 advice and support breathing ~ Give naloxone if available and within your training ~ Do not leave them alone or induce vomiting.",
+"Monitor breathing and responsiveness; symptoms can return after naloxone ~ If not breathing normally, begin CPR and use an AED ~ Tell responders the suspected substance and timing."
+]),
+scenario("new-breathing","Breathing difficulty — other causes","Breathing & allergy","difficulty breathing|shortness of breath|breathless|can't breathe|constricted breathing|respiratory distress","Breathing difficulty with no clear known cause.",[
+"Check safety and call 000 for severe or worsening difficulty ~ Help the person find a position that eases breathing ~ Loosen restrictive clothing.",
+"Ask about onset, known conditions, allergies and prescribed plans ~ Assist only with their own prescribed medicines within training ~ Do not give food or drink if swallowing is impaired.",
+"Monitor breathing, speech and responsiveness ~ Be ready to start CPR if they become unresponsive and are not breathing normally ~ Give responders the timeline and known triggers."
+]),
+scenario("new-fainting","Fainting","Medical","fainting|fainted|syncope|light-headed|near faint|passed out briefly","Brief loss of consciousness or feeling faint.",[
+"Help a faint person lie down safely ~ Check for injury and responsiveness ~ Call 000 if they do not recover promptly or have serious symptoms.",
+"Keep them lying comfortably and loosen tight clothing ~ Do not make them stand quickly or give anything by mouth while drowsy ~ Ask about symptoms when fully recovered.",
+"Seek urgent help for chest pain, breathing trouble, seizure, major injury or repeated fainting ~ If unresponsive but breathing normally, protect the airway and monitor ~ Record duration and recovery."
+]),
+scenario("new-frostbite","Frostbite or cold injury","Heat & cold","frostbite|frozen skin|cold injury|frostnip|numb fingers in cold","Local tissue injury from freezing or extreme cold.",[
+"Move out of the cold and protect the area from further injury ~ Seek urgent care for deep, extensive or worsening injury ~ Do not rub or massage the skin.",
+"Remove jewellery or constricting items if easy before swelling increases ~ Protect the area with a loose dry dressing ~ Do not thaw if it may refreeze before care.",
+"Follow medical advice for rewarming ~ Avoid direct heat and do not break blisters ~ Monitor overall temperature and treat associated hypothermia."
+]),
+scenario("new-hyperglycaemia","High blood sugar or diabetic illness","Medical","hyperglycaemia|hyperglycemia|high blood sugar|diabetic emergency|diabetic ketoacidosis|DKA","Possible high blood glucose or another diabetes-related emergency.",[
+"Look for thirst, frequent urination, nausea, abdominal pain or unusual drowsiness ~ Call 000 for severe symptoms, vomiting or confusion ~ Ask about their diabetes plan.",
+"Help them follow their own plan and use only prescribed medicines ~ Do not give insulin or change medication unless trained and authorised ~ Offer water only if fully alert and able to swallow.",
+"Monitor breathing and responsiveness ~ Do not delay care while checking devices ~ Record symptoms, medicines and any readings volunteered."
+]),
+scenario("new-head","Head injury","Injury","head injury|concussion|hit head|knocked out|bump to head|head trauma","Head impact with possible concussion or more serious injury.",[
+"Call 000 for loss of consciousness, worsening confusion, seizure, severe headache or major trauma ~ Keep the person still and reassure them ~ Do not move them unnecessarily.",
+"Monitor responsiveness and breathing ~ Support the head and neck in the position found ~ Do not give food or drink to a drowsy person.",
+"Control bleeding around, not by pressing on, a suspected skull injury ~ Seek assessment for concerning symptoms or deterioration ~ Record mechanism, time and changes."
+]),
+scenario("new-spinal","Suspected spinal injury","Injury","spinal injury|neck injury|back injury|spine|possible spinal damage|diving injury","Possible neck or back injury after trauma.",[
+"Call 000 for significant trauma, neck or back pain, numbness or weakness ~ Ask the person not to move and reassure them ~ Move only if danger requires it.",
+"Support the head comfortably without forcing alignment ~ Monitor breathing and responsiveness ~ Airway care takes priority if they vomit or deteriorate.",
+"Maintain support while waiting for responders ~ If movement is essential, minimise bending and twisting within your training ~ Record symptoms and mechanism."
+]),
+scenario("new-eye","Eye injury or chemical splash","Injury","eye injury|chemical in eye|foreign body in eye|eye splash|eye trauma|grit in eye","Chemical splash, embedded object or other eye injury.",[
+"Identify possible chemical, penetrating or minor injury ~ Seek urgent help for severe pain, vision loss or penetrating injury ~ Do not rub the eye.",
+"For chemical splash, begin immediate continuous irrigation with clean water and seek urgent advice ~ Do not remove an embedded object ~ Remove contact lenses only if easy while rinsing.",
+"Continue rinsing while arranging care ~ Cover an injured eye loosely without pressure ~ Note the substance, exposure time and vision changes."
+]),
+scenario("new-wound","Minor wound or cut","Injury","cut|graze|abrasion|minor wound|laceration|scrape","Minor skin wound without life-threatening bleeding.",[
+"Check safety and use gloves or a barrier if available ~ Apply direct pressure for bleeding ~ Get urgent help if bleeding is severe or the wound is deep.",
+"Once bleeding is controlled, rinse a minor wound with clean running water ~ Remove only loose surface debris ~ Cover with a clean dressing.",
+"Seek advice if medical review or tetanus protection may be needed ~ Watch for increasing redness, swelling, pain or discharge ~ Keep the dressing clean."
+]),
+scenario("new-nosebleed","Nosebleed","Injury","nosebleed|epistaxis|bleeding nose|nose bleed","Bleeding from the nose.",[
+"Sit the person down and lean them forward ~ Ask them to breathe through the mouth and spit blood out ~ Seek urgent help if bleeding is heavy or follows serious injury.",
+"Pinch the soft part of the nose continuously for 10 minutes without checking ~ Keep the head forward, not tilted back ~ Reassure and use a timer.",
+"If bleeding continues, repeat pressure and seek medical advice ~ Call 000 for severe blood loss, breathing difficulty or collapse ~ Avoid nose blowing after it stops."
+]),
+scenario("new-sprain","Sprain or strain","Injury","sprain|strain|twisted ankle|soft tissue injury|pulled muscle","Possible soft-tissue injury to a joint or muscle.",[
+"Stop activity and check for severe pain, deformity or inability to use the limb ~ Seek urgent care if fracture is possible ~ Protect the area from further harm.",
+"Rest and comfortably support the injured part ~ Use a wrapped cold pack for comfort if helpful ~ Do not force movement or put ice directly on skin.",
+"Reassess pain, swelling and movement ~ Arrange medical review if symptoms are severe or not improving ~ Return to activity gradually when safe."
+]),
+scenario("new-dislocation","Suspected dislocation","Injury","dislocation|dislocated shoulder|joint out|joint dislocated|kneecap out","Possible joint dislocation after injury.",[
+"Call 000 for major trauma, poor circulation or an open injury ~ Keep the person still and support the joint ~ Do not try to put it back.",
+"Immobilise the joint in the position found ~ Remove rings or tight items only if easy before swelling increases ~ Check for changes in sensation or colour.",
+"Seek prompt medical care for assessment ~ Monitor pain and circulation while waiting ~ Record how and when it happened."
+]),
+scenario("new-electric","Electric shock","Injury","electric shock|electrocution|electrical injury|power line|electricity injury","Injury from household, industrial or lightning electricity.",[
+"Do not touch the person until the source is isolated and the scene is safe ~ Call 000 for significant shock, collapse, burns or symptoms ~ Keep others away from live wires.",
+"Once safe, check responsiveness and breathing ~ If not breathing normally, start CPR and use an AED ~ Treat visible burns after life threats.",
+"Arrange medical assessment after significant electrical exposure ~ Monitor for heart or breathing symptoms ~ Tell responders about the source, duration, falls and burns."
+]),
+scenario("new-amputation","Amputation or partial amputation","Injury","amputation|severed finger|severed limb|partially amputated|traumatic amputation","Major injury involving a fully or partly severed body part.",[
+"Call 000 and control life-threatening bleeding with firm direct pressure ~ Help the person lie down and reassure them ~ Do not remove an embedded object.",
+"Support the injured part; use a tourniquet only for severe limb bleeding if trained and available ~ Wrap a severed part in clean moist gauze, seal in a bag and keep cool without direct ice ~ Tell responders where it is and when it was separated.",
+"Monitor breathing and signs of shock ~ Do not delay ambulance care to retrieve the part ~ Note timings and bleeding control for responders."
+]),
+scenario("new-dental","Dental injury","Injury","tooth knocked out|dental injury|broken tooth|avulsed tooth|tooth trauma","Knocked-out, fractured or displaced tooth after injury.",[
+"Check for serious head, face or airway injury first ~ Call 000 if present ~ Control bleeding gently with clean gauze.",
+"For a permanent tooth knocked out, hold it by the crown, not the root ~ Rinse briefly with milk or saline if dirty; do not scrub ~ Keep it moist in milk if it cannot be replaced safely.",
+"Seek urgent dental care immediately ~ Do not reinsert a baby tooth ~ Bring the tooth or fragments and note the injury time."
+]),
+scenario("new-animal-bite","Animal or human bite","Bites & stings","dog bite|cat bite|human bite|animal bite|mammal bite|scratch","Bite or scratch with bleeding, infection or tissue injury risk.",[
+"Make the scene safe and separate the person from the animal without added risk ~ Call 000 for severe bleeding or major injury ~ Use a barrier if available.",
+"Control bleeding with direct pressure and rinse a minor wound with clean water ~ Do not close a deep or contaminated wound yourself ~ Cover it with a clean dressing.",
+"Arrange prompt medical advice because bites may need further care ~ Note animal details if safely known ~ Watch for infection or worsening pain."
+]),
+scenario("new-spider","Spider bite","Bites & stings","spider bite|funnel web|funnel-web|redback|mouse spider","Spider bite; suspected funnel-web or mouse spider bites need urgent care.",[
+"Call 000 for suspected funnel-web or mouse spider bite, severe symptoms or deterioration ~ Keep the person still and reassure them ~ Do not wash the bite.",
+"For suspected funnel-web or mouse spider bite, apply pressure immobilisation and splint the limb if trained ~ Do not use this method for other spiders unless local guidance says so ~ Note the time.",
+"Do not cut, suck or tourniquet the bite ~ Monitor breathing and consciousness ~ Stay with them and tell responders the suspected spider if known."
+]),
+scenario("new-insect","Insect sting or local bite","Bites & stings","bee sting|wasp sting|ant bite|insect bite|bee|wasp|local sting","Local insect sting or bite without severe allergic symptoms.",[
+"Move away from the source and check for anaphylaxis signs ~ Call 000 if breathing or circulation is affected ~ Remove a visible sting carefully if present.",
+"Wash the area and use a wrapped cold pack for comfort ~ Avoid scratching and follow the person's allergy plan if relevant ~ Do not squeeze a venom sac.",
+"Observe for spreading swelling, dizziness or breathing changes ~ Use their prescribed adrenaline injector and call 000 if anaphylaxis develops ~ Seek advice if symptoms worsen."
+])
+];
+const originalGeneric=[
+["Recognises the scenario and identifies the main concern.","Checks the scene for danger before approaching.","Gets appropriate help and communicates clearly.","Provides suitable immediate support within their training.","Monitors the person and seeks further help if their condition changes."],
+["Introduces themselves and gains cooperation where possible.","Uses a structured approach to check immediate safety.","Identifies relevant signs and symptoms.","Asks focused questions about what happened and when.","Calls emergency services when indicated.","Chooses an appropriate first-aid response within their training.","Explains actions and reassures the person.","Avoids actions that could worsen the situation.","Reassesses the person's condition after intervention.","Provides a concise handover to the next level of care."],
+["Completes a systematic scene-safety and personal-protection check.","Identifies immediate life threats and prioritises them.","Assesses responsiveness and the person's ability to communicate.","Checks relevant symptoms, onset, mechanism and medical history.","Recognises signs that require urgent escalation.","Activates emergency response promptly and delegates tasks clearly.","Selects an intervention consistent with current accredited training.","Explains the purpose of each action and obtains cooperation where possible.","Uses equipment appropriately and checks it is suitable.","Avoids contraindicated, unnecessary or unsafe interventions.","Reassesses after each significant intervention.","Monitors for deterioration and anticipates likely complications.","Maintains the person's dignity, warmth and comfort.","Records key observations, timings and interventions.","Gives a structured handover, including changes and response to care."]
+];
+const originalNames=["Unconscious but breathing","Cardiac arrest — CPR and AED","Severe bleeding","Burns and scalds","Choking — blocked airways","Asthma attack","Anaphylaxis","Epileptic seizure","Suspected fracture","Heat exhaustion and heatstroke","Hypoglycaemia — low blood sugar","Stroke"];
+const originalDescs=["unresponsive, passed out, recovery position","collapse, not breathing normally, defibrillator","haemorrhage, haemorrhaging, blood loss, wound","thermal burn, hot liquid, chemical or electrical burn","airway obstruction, foreign object","wheezing, difficulty breathing, constricted breathing","severe allergic reaction, adrenaline autoinjector","fit, convulsion, epilepsy","broken bone, limb injury","overheating, heat illness","diabetes, hypo","facial droop, weakness, slurred speech, FAST"];
+function genericDefault(item,index){if(index>=12||!item||!Array.isArray(item.levels))return false;return JSON.stringify(item.levels)===JSON.stringify([1,2,3].map(n=>originalGeneric[n-1].slice(0,sizes[n-1]).map(x=>x.replaceAll("the scenario",originalNames[index].toLowerCase()))))}
+function validLevels(x){return Array.isArray(x)&&x.length===3&&x.every((a,i)=>Array.isArray(a)&&a.length===sizes[i]&&a.every(v=>typeof v==="string"))}
+function checksFor(checks,levels){return levels.map((a,i)=>a.map((_,j)=>Boolean(Array.isArray(checks&&checks[i])&&checks[i][j])))}
+const oldById=new Map(store.filter(x=>x&&x.id).map(x=>[x.id,x])),priorPending=localStorage.getItem("vitals-pending")==="1";let dirty=priorPending;
+const next=catalog.map((def,index)=>{const old=oldById.get(def.id);if(!old)return def;oldById.delete(def.id);const wasGeneric=genericDefault(old,index),customLabel=index<12&&(old.name!==originalNames[index]||old.desc!==originalDescs[index]),edited=customLabel||(!wasGeneric&&JSON.stringify(old.levels)!==JSON.stringify(def.levels));if(edited)dirty=true;const levels=!wasGeneric&&validLevels(old.levels)?old.levels:def.levels;return Object.assign({},def,{name:old.name||def.name,desc:old.desc||def.desc,category:def.category,aliases:Array.from(new Set(def.aliases.concat(Array.isArray(old.aliases)?old.aliases:(old.aliases||"").split(/[|,;]/)))),levels:levels,checks:wasGeneric?[[],[],[]]:checksFor(old.checks,levels)})});
+for(const old of oldById.values()){if(String(old.id).startsWith("custom-")||old.localOnly){next.push(Object.assign({},old,{category:old.category||"Custom",localOnly:true,levels:validLevels(old.levels)?old.levels:catalog[0].levels,checks:checksFor(old.checks,validLevels(old.levels)?old.levels:catalog[0].levels)}));dirty=true}}
+store.splice(0,store.length,...next);try{localStorage.setItem("vitals-store",JSON.stringify(store));localStorage.setItem("vitals-pending",dirty?"1":"0")}catch(e){}
+let category="ALL",unlocked=false,unlockAction=null,cloudToken=null,lastUpdated=null;
+const byId=id=>document.getElementById(id),config=window.VITALS_CLOUD_CONFIG||{};
+function normal(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim()}
+function safe(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function allTerms(x){const a=Array.isArray(x.aliases)?x.aliases:(typeof x.aliases==="string"?x.aliases.split(/[|,;]/):[]);return [x.name,x.desc].concat(a).map(normal).filter(Boolean)}
+function editDistance(a,b){let r=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=r[0];r[0]=i;for(let j=1;j<=b.length;j++){let v=r[j];r[j]=Math.min(r[j]+1,r[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=v}}return r[b.length]}
+const synonyms={"bleeding":["haemorrhage","hemorrhage","haemorrhaging","blood loss"],"haemorrhage":["bleeding","hemorrhage"],"difficulty breathing":["constricted breathing","shortness of breath"],"constricted breathing":["difficulty breathing","shortness of breath"],"choking":["blocked airways","blocked airway","airway obstruction"],"blocked airways":["choking","airway obstruction"],"snakebite":["snake bite"],"hyperthermia":["heat illness","heatstroke"],"panic":["panic attack"]};
+rank=function(item,q){const n=normal(q);if(!n)return 0;const terms=allTerms(item),expanded=[n].concat((synonyms[n]||[]).map(normal));if(terms.includes(n))return 100;if(terms.some(t=>t.includes(n)||n.includes(t)))return 88;if(expanded.slice(1).some(e=>terms.some(t=>t.includes(e)||e.includes(t))))return 84;const words=n.split(" ").filter(w=>w.length>2),hay=terms.join(" ");const hits=words.filter(w=>hay.includes(w)).length;if(words.length&&hits)return 45+hits*10/words.length;let best=0;if(n.length>4)terms.forEach(t=>t.split(" ").forEach(w=>best=Math.max(best,1-editDistance(n,w)/Math.max(n.length,w.length))));return best>.72?44:0};
+const resultBox=byId("results"),searchInput=byId("search"),oldSearch=search;
+searchInput.removeEventListener("input",oldSearch);
+const filterBar=document.createElement("div");filterBar.id="vitalsFilters";filterBar.className="filters";resultBox.before(filterBar);
+const status=document.createElement("p");status.id="vitalsCloudStatus";status.className="cloudstatus";status.setAttribute("role","status");status.setAttribute("aria-live","polite");filterBar.after(status);
+function categoriesNow(){const seen=store.map(x=>x.category||"Custom");return categories.filter(x=>seen.includes(x)).concat(seen.filter(x=>!categories.includes(x)).filter((x,i,a)=>a.indexOf(x)===i))}
+function drawFilters(){filterBar.innerHTML="";["ALL"].concat(categoriesNow()).forEach(x=>{const b=document.createElement("button");b.className="filter"+(category===x?" active":"");b.textContent=x==="ALL"?"ALL SCENARIOS":x.toUpperCase();b.onclick=()=>{category=x;drawFilters();search()};filterBar.appendChild(b)})}
+function resultButton(item){const b=document.createElement("button");b.className="result";b.innerHTML="<span>"+safe(item.name)+"<small>"+safe(item.desc||"First aid training checklist")+"</small></span><span class=\"arrow\">›</span>";b.onclick=()=>open(item.id);return b}
+search=function(){const q=searchInput.value.trim(),items=store.filter(x=>category==="ALL"||(x.category||"Custom")===category);resultBox.innerHTML="";if(!q){if(!items.length){resultBox.innerHTML='<div class="empty">No checklists in this category.</div>';return}const grouped=new Map();items.forEach(x=>{const c=x.category||"Custom";if(!grouped.has(c))grouped.set(c,[]);grouped.get(c).push(x)});Array.from(grouped.entries()).sort((a,b)=>(categories.indexOf(a[0])<0?999:categories.indexOf(a[0]))-(categories.indexOf(b[0])<0?999:categories.indexOf(b[0]))).forEach(([name,list])=>{const section=document.createElement("section");section.className="group";const h=document.createElement("h3");h.textContent=name.toUpperCase()+" · "+list.length;section.append(h);list.forEach(x=>section.append(resultButton(x)));resultBox.append(section)});return}
+const found=items.map(x=>({x,score:rank(x,q)})).filter(x=>x.score>=38).sort((a,b)=>b.score-a.score).slice(0,16);found.forEach(x=>resultBox.append(resultButton(x)));if(!found.length||!found.some(x=>normal(x.x.name)===normal(q))){const e=document.createElement("div");e.className="empty";e.innerHTML=(found.length?"Not what you need?":"No matching checklist found.")+'<br><button class="primary" id="make" style="margin-top:13px">＋ CREATE “'+safe(q.toUpperCase())+'” CHECKLIST</button>';resultBox.append(e);byId("make").onclick=()=>showCreate(q)}};
+function updateStatus(){status.textContent=dirty?"LOCAL CHECKLIST EDITS WAITING TO PUBLISH":lastUpdated?"SHARED LIST UPDATED "+new Date(lastUpdated).toLocaleString():cloudReady()?"SHARED LIST READY · CHECKING FOR UPDATES":"OFFLINE-FIRST · SHARED UPDATES NEED ONE-TIME SETUP"}
+function markDirty(){dirty=true;try{localStorage.setItem("vitals-pending","1");localStorage.setItem("vitals-store",JSON.stringify(store))}catch(e){}updateStatus()}
+function cloudReady(){return /^https:\/\/[a-z0-9.-]+$/.test(String(config.url||"").replace(/\/$/,""))&&typeof config.anonKey==="string"&&config.anonKey.length>20}
+function unlock(action){if(unlocked){action();return}unlockAction=action;byId("passcodeInput").value="";byId("passcodeModal").classList.add("open");setTimeout(()=>byId("passcodeInput").focus(),20)}
+function openCreate(q){byId("newTitle").value=q||"";byId("newDesc").value="";byId("newCategory").value=category==="ALL"?"Injury":category;byId("createModal").classList.add("open")}
+showCreate=function(q){unlock(()=>openCreate(q))};
+function drawDetail(){if(current){byId("scenarioCategory").textContent=current.category||"Custom"}}
+const oldDraw=draw;draw=function(){oldDraw();drawDetail()};
+
+byId("createModal").querySelector(".modal p").textContent="Add a personal scenario. New custom checklists are saved on this device and can be shared by publishing.";
+
+
+function fillSelect(el,val){el.innerHTML=categoriesNow().concat(["Custom"]).filter((x,i,a)=>a.indexOf(x)===i).map(x=>'<option value="'+safe(x)+'">'+safe(x)+'</option>').join("");el.value=val||"Custom"}
+byId("edit").onclick=()=>unlock(()=>byId("editor").classList.contains("open")?byId("editor").classList.remove("open"):edit());
+byId("saveEdit").onclick=()=>unlock(()=>{const values=Array.from(byId("editList").querySelectorAll("textarea")).map(x=>x.value.trim());if(values.length!==sizes[level-1]){alert("This level must contain exactly "+sizes[level-1]+" criteria.");return}current.levels[level-1]=values.map(x=>x||"Add a criterion.");current.checks[level-1]=[];save();markDirty();byId("editor").classList.remove("open");draw()});
+byId("create").onclick=()=>unlock(()=>{const name=byId("newTitle").value.trim();if(!name){byId("newTitle").focus();return}const desc=byId("newDesc").value.trim(),id="custom-"+Date.now(),cat=byId("newCategory").value||"Custom",one=["Recognises "+name.toLowerCase()+" and the main concern.","Checks the scene and keeps the person safe.","Gets appropriate help and communicates clearly.","Provides suitable support within current training.","Monitors the person and reassesses for changes."],two=["Introduces themselves and gains cooperation where possible.","Uses a structured approach to check immediate safety.","Identifies relevant signs and symptoms.","Asks focused questions about what happened and when.","Calls emergency services when indicated.","Chooses an action within current first-aid training.","Explains actions and reassures the person.","Avoids actions that could worsen the situation.","Reassesses after intervention.","Gives a concise handover."],three=["Checks scene safety and uses appropriate protection.","Identifies and prioritises immediate life threats.","Assesses responsiveness and communication.","Checks symptoms, onset, mechanism and relevant history.","Recognises signs that need urgent escalation.","Calls emergency services promptly and delegates tasks.","Chooses an action consistent with accredited training.","Explains the purpose of actions.","Uses equipment appropriately.","Avoids unsafe or unnecessary interventions.","Reassesses after significant actions.","Monitors for deterioration.","Maintains dignity, warmth and comfort.","Records key observations and timing.","Gives a structured handover."],item={id,name,category:cat,desc,aliases:desc.split(/[|,;]/).filter(Boolean),levels:[one,two,three],checks:[[],[],[]],localOnly:true};store.push(item);save();markDirty();byId("createModal").classList.remove("open");drawFilters();open(id);edit()});
+byId("rename").onclick=()=>unlock(()=>{byId("renameTitle").value=current.name;byId("renameDesc").value=current.desc||"";fillSelect(byId("renameCategory"),current.category);byId("renameModal").classList.add("open")});
+byId("saveRename").onclick=()=>unlock(()=>{current.name=byId("renameTitle").value.trim()||current.name;current.desc=byId("renameDesc").value.trim();current.category=byId("renameCategory").value||"Custom";save();markDirty();byId("renameModal").classList.remove("open");drawFilters();draw()});
+byId("delete").onclick=()=>unlock(()=>{if(confirm('Delete "'+current.name+'" and all its criteria from this device?')){store=store.filter(x=>x.id!==current.id);save();markDirty();category="ALL";drawFilters();home()}});
+byId("unlock").onclick=()=>{if(byId("passcodeInput").value!==EDIT_CODE){alert("That passcode is not correct.");byId("passcodeInput").select();return}unlocked=true;byId("passcodeModal").classList.remove("open");const fn=unlockAction;unlockAction=null;if(fn)fn();setTimeout(()=>{unlocked=false},15*60*1000)};
+byId("passcodeInput").addEventListener("keydown",e=>{if(e.key==="Enter")byId("unlock").click()});
+byId("cancelPasscode").onclick=()=>byId("passcodeModal").classList.remove("open");
+byId("cancelCreate").onclick=()=>byId("createModal").classList.remove("open");
+const cloudMarkup='<div class="modalbg" id="passcodeModal"><div class="modal"><h2>EDITING PASSCODE</h2><p>Enter the four-digit code to create, edit or delete checklists.</p><div class="note">This is a simple deterrent in the page. Anyone inspecting the public site files can find the code, so it is not secure authentication.</div><label for="passcodeInput">FOUR-DIGIT PASSCODE</label><input id="passcodeInput" class="field" type="password" inputmode="numeric" maxlength="4" autocomplete="one-time-code"><div class="modalbuttons"><button class="secondary" id="cancelPasscode">CANCEL</button><button class="primary" id="unlock">UNLOCK EDITING</button></div></div></div><div class="modalbg" id="cloudModal"><div class="modal"><h2>SHARED CHECKLIST BACKUP</h2><p id="cloudHelp"></p><div id="cloudMessage" class="note" role="status" aria-live="polite"></div><div class="note"><strong>Progress stays on this device.</strong> Publishing shares checklist names and criteria only. Latest shared content needs an internet connection; the app and saved progress still work offline.</div><label for="cloudEmail">OWNER EMAIL</label><input id="cloudEmail" class="field" type="email" autocomplete="username" placeholder="Account configured in Supabase"><label for="cloudPassword">OWNER PASSWORD</label><input id="cloudPassword" class="field" type="password" autocomplete="current-password" placeholder="Used for sign-in; not saved by VITALS"><div class="modalbuttons"><button class="secondary" id="cloudClose">CLOSE</button><button class="secondary" id="cloudLoad">LOAD SHARED LIST</button><button class="primary" id="cloudPublish">SIGN IN & PUBLISH</button><button class="secondary" id="cloudSignOut" style="display:none">SIGN OUT</button></div></div></div>';
+document.body.insertAdjacentHTML("beforeend",cloudMarkup);
+const top=document.querySelector(".top");top.insertAdjacentHTML("beforeend",'<div class="topactions"><button class="small" id="sharedButton">SHARED LIST</button></div>');
+const homeBtn=byId("home");homeBtn.style.marginLeft="auto";
+const homeMain=byId("homePage"),homeResults=byId("results");homeMain.insertBefore(filterBar,homeResults);homeMain.insertBefore(status,homeResults);
+byId("sharedButton").onclick=openCloud;
+byId("cloudClose").onclick=()=>byId("cloudModal").classList.remove("open");
+function cloudMessage(s){byId("cloudMessage").textContent=s}
+function openCloud(){if(!cloudReady()){byId("cloudHelp").textContent="Shared backup needs a one-time Supabase setup. See SETUP.md and supabase-setup.sql in the replacement package.";cloudMessage("Project URL and public publishable key are not set in public-config.js.")}else{byId("cloudHelp").textContent="Anyone can read the published list. Only the owner account configured in Supabase can publish.";cloudMessage(dirty?"This device has unpublished checklist edits. Publish them or load the shared version.":"Checklist edits publish only when you choose to publish.")}byId("cloudSignOut").style.display=cloudToken?"inline-block":"none";byId("cloudPublish").textContent=cloudToken?"PUBLISH CHANGES":"SIGN IN & PUBLISH";byId("cloudEmail").value="";byId("cloudPassword").value="";byId("cloudModal").classList.add("open")}
+async function loadShared(force){if(!cloudReady()){cloudMessage("Add the Supabase URL and public publishable key to public-config.js first.");return false}if(!navigator.onLine){cloudMessage("You are offline. Saved checklists remain available on this device.");return false}cloudMessage("Checking for the latest shared list…");try{const base=String(config.url).replace(/\/$/,""),r=await fetch(base+"/rest/v1/vitals_checklists?id=eq.1&select=payload,updated_at",{headers:{apikey:config.anonKey}});if(!r.ok)throw new Error("Database request failed ("+r.status+"). Check the setup SQL and public key.");const rows=await r.json();if(!rows.length||!rows[0].payload||!Array.isArray(rows[0].payload.checklists)||!rows[0].payload.checklists.length){cloudMessage("No shared checklist has been published yet. Built-in checklists remain available.");return false}if(dirty&&!force){cloudMessage("This device has unpublished edits. Choose Load Shared List to replace its checklist definitions, or publish your local edits.");return false}if(dirty&&force&&!confirm("Loading the shared list replaces this device's unpublished checklist edits. Local progress stays here. Continue?"))return false;const payload=rows[0].payload,progress=new Map(store.map(x=>[x.id,x.checks]));let next=payload.checklists.filter(x=>x&&x.id&&validLevels(x.levels)).map(x=>Object.assign({},x,{localOnly:false,checks:checksFor(progress.get(x.id),x.levels)}));if(Number(payload.catalogVersion||0)<CATALOG_VERSION){const ids=new Set(next.map(x=>x.id));catalog.forEach(x=>{if(!ids.has(x.id))next.push(Object.assign({},x,{checks:checksFor(progress.get(x.id),x.levels)}))})}store.filter(x=>x.localOnly).forEach(x=>{if(!next.some(y=>y.id===x.id))next.push(x)});store.splice(0,store.length,...next);dirty=false;lastUpdated=rows[0].updated_at||payload.publishedAt||null;save();drawFilters();if(current){const id=current.id;current=store.find(x=>x.id===id)||null;if(current)draw();else home()}else search();cloudMessage("Loaded the shared checklist list. Progress stays local to this device.");updateStatus();return true}catch(e){cloudMessage(e.message||"Could not load shared checklists.");return false}}
+function sharedPayload(){return{catalogVersion:CATALOG_VERSION,publishedAt:new Date().toISOString(),checklists:store.map(x=>({id:x.id,name:x.name,category:x.category||"Custom",desc:x.desc||"",aliases:Array.isArray(x.aliases)?x.aliases:[],levels:x.levels,localOnly:false}))}}
+async function publishShared(){if(!cloudReady()){cloudMessage("Add Supabase URL and public publishable key to public-config.js first.");return false}if(!navigator.onLine){cloudMessage("Reconnect to the internet before publishing.");return false}if(!cloudToken){cloudMessage("Sign in with the authorized owner account.");return false}cloudMessage("Publishing checklist changes…");try{const base=String(config.url).replace(/\/$/,""),r=await fetch(base+"/rest/v1/vitals_checklists?id=eq.1",{method:"PATCH",headers:{apikey:config.anonKey,Authorization:"Bearer "+cloudToken,"Content-Type":"application/json",Prefer:"return=representation"},body:JSON.stringify({payload:sharedPayload()})});if(!r.ok){const t=await r.text();throw new Error("Could not publish ("+r.status+"). "+t.slice(0,200))}const rows=await r.json();if(!rows.length)throw new Error("No shared row was updated. Check that the signed-in account matches the owner UUID in Supabase.");dirty=false;lastUpdated=rows[0].updated_at||new Date().toISOString();save();cloudMessage("Published. Visitors to the same website can load this list when online.");updateStatus();return true}catch(e){cloudMessage(e.message||"Could not publish checklist changes.");return false}}
+byId("cloudPublish").onclick=async()=>{if(!cloudReady()){cloudMessage("Add the Supabase URL and public publishable key to public-config.js first.");return}if(cloudToken){await publishShared();return}const email=byId("cloudEmail").value.trim(),password=byId("cloudPassword").value;if(!email||!password){cloudMessage("Enter the owner email and password for this Supabase project.");return}cloudMessage("Signing in to Supabase…");try{const base=String(config.url).replace(/\/$/,""),r=await fetch(base+"/auth/v1/token?grant_type=password",{method:"POST",headers:{apikey:config.anonKey,"Content-Type":"application/json"},body:JSON.stringify({email,password})}),data=await r.json();if(!r.ok)throw new Error(data.msg||data.message||data.error_description||"Sign-in failed. Check the owner account.");cloudToken=data.access_token;byId("cloudPassword").value="";byId("cloudSignOut").style.display="inline-block";byId("cloudPublish").textContent="PUBLISH CHANGES";await publishShared()}catch(e){cloudMessage(e.message||"Could not sign in.")}};
+byId("cloudLoad").onclick=()=>loadShared(true);
+byId("cloudSignOut").onclick=()=>{cloudToken=null;byId("cloudPublish").textContent="SIGN IN & PUBLISH";cloudMessage("Signed out. Shared lists remain publicly readable.")};
+drawFilters();search();updateStatus();if(cloudReady())loadShared(false);window.addEventListener("online",()=>loadShared(false));
+})();
 </script></body></html>
