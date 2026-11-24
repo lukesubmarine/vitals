@@ -1,25 +1,23 @@
 {
-  "name": "First Aid Field Guide",
-  "short_name": "First Aid",
-  "description": "Offline first-aid practice checklists",
+  "name": "VITALS \u2014 First Aid Training Application",
+  "short_name": "VITALS",
+  "description": "Editable first aid training checklists, available offline.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#111111",
-  "theme_color": "#111111",
+  "background_color": "#090c0b",
+  "theme_color": "#101311",
   "icons": [
     {
       "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     }
   ]
 }
